@@ -4,6 +4,8 @@ import cors from 'cors'
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import postRouter from './routes/postRoute';
+import likeRouter from './routes/likeRoute';
+import commentRouter from './routes/commentRoute';
 dotenv.config()
 
 const app = express()
@@ -22,7 +24,8 @@ app.use(cors())
 
 
 app.use('/api', postRouter)
-
+app.use('/api', likeRouter)
+app.use('/api', commentRouter)
 app.listen(PORT, () => {
     console.log(`Server is up on post ${PORT}`)
 

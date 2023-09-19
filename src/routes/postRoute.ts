@@ -1,6 +1,6 @@
 import express, { Response, Request } from 'express'
 const postRouter = express.Router()
-import PostModal, { createPost, getAllPost } from '../model/post'
+import PostModal, { createPost, deletePost, getAllPost, getPostById } from '../model/post'
 
 postRouter.post('/post/create', async (req: Request, res: Response) => {
     try {
@@ -24,6 +24,27 @@ postRouter.get('/post/getAll', async (req: Request, res: Response) => {
     }
 })
 
+postRouter.delete('/post/:post_id', async (req: Request, res: Response) => {
+    try {
+        const post = await deletePost(req.params.post_id)
+        res.send()
+    } catch (e) {
+        console.log(e);
+        res.status(500).send()
+
+    }
+})
+
+postRouter.get('/post/:post_id', async (req: Request, res: Response) => {
+    try {
+        const post = await getPostById(req.params.post_id)
+        res.status(200).send(post)
+    } catch (e) {
+        console.log(e);
+        res.status(500).send()
+
+    }
+})
 
 
 export default postRouter
