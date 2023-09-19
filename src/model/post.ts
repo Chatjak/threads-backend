@@ -62,4 +62,10 @@ export const getAllPost = async () => {
     const posts = await PostModal.find({}).sort({ createdAt: -1 })
     return posts
 }
+export const getPostByUser = async (User: user) => {
+
+    const posts = await PostModal.find({ user: { email: User.email, name: User.name, image: User.image }, }).sort({ createdAt: -1 })
+    return posts
+}
+
 export default PostModal

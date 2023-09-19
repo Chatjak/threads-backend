@@ -1,6 +1,6 @@
 import express, { Response, Request } from 'express'
 const postRouter = express.Router()
-import PostModal, { createPost, deletePost, getAllPost, getPostById } from '../model/post'
+import PostModal, { createPost, deletePost, getAllPost, getPostById, getPostByUser } from '../model/post'
 
 postRouter.post('/post/create', async (req: Request, res: Response) => {
     try {
@@ -46,5 +46,15 @@ postRouter.get('/post/:post_id', async (req: Request, res: Response) => {
     }
 })
 
+
+
+postRouter.post('/post/me', async (req: Request, res: Response) => {
+    try {
+        const posts = await getPostByUser(req.body.user);
+        res.send(posts)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
 
 export default postRouter
